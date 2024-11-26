@@ -3,15 +3,13 @@ require 'yaml'
 class Minisky
   attr_reader :host, :config
 
-  def initialize(host, config_file, options = {})
+  def initialize(host, config, options = {})
     @host = host
-    @config_file = config_file
+    @config = config
 
-    if @config_file
-      @config = YAML.load(File.read(@config_file))
-
+    if @config
       if user.id.nil? || user.pass.nil?
-        raise AuthError, "Missing user id or password in the config file #{@config_file}"
+        raise AuthError, "Missing user id or password in the config #{@config}"
       end
     else
       @config = {}
@@ -34,10 +32,6 @@ class Minisky
     return true if defined?(IRB) && IRB.respond_to?(:CurrentContext) && IRB.CurrentContext
     return true if defined?(Pry) && Pry.respond_to?(:cli) && Pry.cli
     false
-  end
-
-  def save_config
-    File.write(@config_file, YAML.dump(@config)) if @config_file
   end
 end
 

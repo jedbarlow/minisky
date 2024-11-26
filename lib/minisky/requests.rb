@@ -140,7 +140,6 @@ class Minisky
       user.access_token = json['accessJwt']
       user.refresh_token = json['refreshJwt']
 
-      save_config
       json
     end
 
@@ -154,14 +153,12 @@ class Minisky
       user.access_token = json['accessJwt']
       user.refresh_token = json['refreshJwt']
 
-      save_config
       json
     end
 
     def reset_tokens
       user.access_token = nil
       user.refresh_token = nil
-      save_config
       nil
     end
 
